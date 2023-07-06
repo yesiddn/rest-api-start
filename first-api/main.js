@@ -1,23 +1,48 @@
 const API = 'https://api.thecatapi.com/v1/images/search';
 
-const btn = document.querySelector('button');
+const oneCatBtn = document.querySelector('#regenerate');
+const threeCatsBtn = document.querySelector('#regenerate-all');
 const img = document.querySelector('img');
+const images = document.getElementsByTagName('img');
 
-const insertCat = async () => {
-  try {
-    const cat = await fetchCat(API);
-    img.src = cat[0].url;
-  } catch (error) {
-    throw new Error(error);
-  }
-}
-
+// consult the API
 async function fetchCat(urlApi) {
   const response = await fetch(urlApi);
   const data = await response.json();
   return data;
 }
 
+// return just one cat
+const insertOneCat = async () => {
+  try {
+    const cat = await fetchCat(API);
+    img.src = cat[0].url;
 
-window.addEventListener('load', insertCat);
-btn.addEventListener('click', insertCat);
+    images[1].classList.add('hidden');
+    images[2].classList.add('hidden');
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+// return three cats
+const insertThreeCats = async () => {
+  try {
+    const allCats = await fetchCat(`${API}?limit=10`);
+    const cats = allCats.slice(0, 3);
+
+    const arrImages = [...images];
+
+    arrImages.forEach((image, item) => {
+      image.src = cats[item].url;
+      image.classList.remove('hidden');
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+oneCatBtn.addEventListener('click', insertOneCat);
+threeCatsBtn.addEventListener('click', insertThreeCats);
+
+insertOneCat();
