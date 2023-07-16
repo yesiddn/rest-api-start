@@ -40,3 +40,46 @@ Las cinco clases incluyen:
 El código de estado HTTP 418 I'm a teapot (Soy una tetera) es un código de estado de error de la familia 4xx. Este código de estado se introdujo en 1998 como una parte de la especificación de protocolo Hyper Text Coffee Pot Control Protocol (HTCPCP), en broma, y no se ha definido en ninguna especificación RFC posterior.
 
 Se puede ver una página de error 418 en el sitio web de [Google](https://www.google.com/teapot).
+
+## API Keys
+
+Son métodos de autenticación que se utilizan para identificar a la aplicación que está haciendo una petición a una API. Se utilizan para evitar que personas no autorizadas hagan peticiones a la API y para limitar la cantidad de peticiones que se pueden hacer en un período de tiempo.
+
+### Autenticación vs Autorización
+
+Es importante entender la diferencia entre autenticación y autorización. Generalmente, la autenticación es el primer paso para acceder a un recurso, y la autorización es el segundo paso, después de la autenticación.
+
+La **autenticación** es el proceso de verificar la identidad de un usuario. Por ejemplo, cuando inicias sesión en una aplicación, estás autenticando tu identidad.
+
+La **autorización** es el proceso de verificar qué recursos tiene permitido acceder un usuario. Por ejemplo, cuando inicias sesión en una aplicación, es posible que tengas permiso para ver ciertas páginas, pero no otras.
+
+Existen muchas formas de autenticación. Una muy usada es la autenticación basada en tokens. En este tipo de autenticación, el servidor genera un token único para cada usuario que se autentica. Este token se envía al cliente y se almacena en el navegador. Luego, cada vez que el cliente hace una petición al servidor, el token se envía junto con la petición. El servidor verifica que el token sea válido y, si lo es, permite que el cliente acceda al recurso solicitado. A este tipo de autenticación se lo conoce como **autenticación basada en tokens** o **API Keys**.
+
+### Cómo se crean estos tokens
+
+No existe ningún constraint para implementar esto. Cada sistema genera sus tokens de forma diferente. La más usada es un hash de 32 caracteres generado con el algoritmo MD5 o números al azar. Otros sistemas generan un string combinando valores aleatorios junto con información del usuario, como su nombre de usuario, su email, su rol, hardware, IP, etc.
+
+### Otras formas de autorización
+
+- **Basic Auth:** Es un método de autenticación que envía el usuario y la contraseña en cada petición. Es muy inseguro porque la información viaja en texto plano.
+- **Bearers Tokens:** Es un método de autenticación que envía un token en cada petición. Es más seguro que Basic Auth porque la información viaja encriptada.
+- **OAuth:** Es un protocolo de autorización que permite a una aplicación acceder a los recursos de un usuario en un servidor. Por ejemplo, cuando una aplicación te permite iniciar sesión con tu cuenta de Google, está utilizando OAuth para acceder a tu información de Google. Este es el método de autenticación más seguro y complejo de todos.
+- **Access Key + Secret Key:** Es un método de autenticación que envía un par de claves en cada petición. Es más seguro que Basic Auth porque la información viaja encriptada.
+
+### Cómo se envían estos tokens
+
+Se pueden enviar de dos formas más usadas: en el header de la petición o como un query parameter. También se pueden enviar en el body de la petición, pero no es muy común o como un costum header.
+
+#### En el header de la petición
+
+```http
+header: {
+  'x-api-key' : '123456789'
+}
+```
+
+#### En el query parameter
+
+```js
+const API = 'https://api.example.com/v1/endPoint?api_key=123456789';
+```
