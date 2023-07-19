@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Kitty app - The first REST API</title>
+</head>
+
+<body>
+  <main class="flex flex-col justify-center items-center">
+    <h1 class="mb-8 text-3xl font-bold text-center">Kitty app</h1>
+
+    <div>
+      <button id="regenerate" type="button"
+        class="w-32  mb-4 p-2 bg-sky-300 rounded-lg uppercase hover:bg-sky-500">Regenerate</button>
+      <button id="regenerate-all" type="button"
+        class="w-36  mb-4 p-2 bg-sky-300 rounded-lg uppercase hover:bg-sky-500">Regenerate all</button>
+    </div>
+
+    <section class="" id="random-michis">
+      <h2>Random michis</h2>
+
+      <div class="flex flex-wrap justify-center items-center gap-4 mx-12">
+        <article class="">
+          <img class="max-w-sm rounded-lg" alt="Random kitty image" loading="lazy">
+          <button>Guardar michi en favoritos</button>
+        </article>
+        
+        <article class="hidden">
+          <img class="max-w-sm rounded-lg" alt="Random kitty image" loading="lazy">
+          <button>Guardar michi en favoritos</button>
+        </article>
+        
+        <article class="hidden">
+          <img class="max-w-sm rounded-lg" alt="Random kitty image" loading="lazy">
+          <button>Guardar michi en favoritos</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="favorites-michis">
+      <h2>Favorites michis</h2>
+
+      <article class="hidden">
+        <img class="max-w-sm rounded-lg" alt="Random kitty image" loading="lazy">
+        <button>Sacar al michi de favoritos</button>
+      </article>
+    </section>
+  </main>
+
+  <script src="./main.js"></script>
+</body>
+
+</html>
