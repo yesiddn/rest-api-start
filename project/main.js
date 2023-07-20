@@ -1,4 +1,6 @@
-const API = 'https://api.thecatapi.com/v1/images/search';
+const API = 'https://api.thecatapi.com/v1';
+const API_KEY =
+  'api_key=live_5gjCKPHcZgibL1vzu3k9EPtHv0LU2qN7y7CQECh7bxvIl56X9p10gaK6mVyAdIqX';
 
 const oneCatBtn = document.querySelector('#regenerate');
 const threeCatsBtn = document.querySelector('#regenerate-all');
@@ -15,7 +17,7 @@ async function fetchCat(urlApi) {
 // return just one cat
 const insertOneCat = async () => {
   try {
-    const cat = await fetchCat(API);
+    const cat = await fetchCat(`${API}/images/search`);
     img.src = cat[0].url;
 
     images[1].parentElement.classList.add('hidden');
@@ -28,7 +30,11 @@ const insertOneCat = async () => {
 // return three cats
 const insertThreeCats = async () => {
   try {
-    const allCats = await fetchCat(`${API}?limit=10`);
+    // const allCats = await fetchCat(
+    //   `${API}/images/search?limit=3&api_key=${API_KEY}`
+    // ); // with api_key we can get just 3 cats
+    const allCats = await fetchCat(`${API}/images/search?limit=3`); // without api_key just we can get 10 cats
+    console.log(allCats);
     const cats = allCats.slice(0, 3);
 
     const arrImages = [...images];
@@ -42,7 +48,19 @@ const insertThreeCats = async () => {
   }
 };
 
+// return just one cat
+const insertFavoritesCats = async () => {
+  try {
+    const cat = await fetchCat(`${API}/favourites?${API_KEY}`);
+
+    console.log(cat);
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
 oneCatBtn.addEventListener('click', insertOneCat);
 threeCatsBtn.addEventListener('click', insertThreeCats);
 
 insertOneCat();
+insertFavoritesCats();
