@@ -41,6 +41,24 @@ El código de estado HTTP 418 I'm a teapot (Soy una tetera) es un código de est
 
 Se puede ver una página de error 418 en el sitio web de [Google](https://www.google.com/teapot).
 
+## HTTP Methods
+
+Existe un conjunto de métodos HTTP que se utilizan para indicar la acción que se quiere realizar sobre un recurso. Los más usados son GET, POST, PUT y DELETE.
+
+- **GET:** Se utiliza para obtener un recurso del servidor. Por ejemplo, cuando se quiere obtener un usuario, un producto o una categoría.
+- **POST:** Se utiliza para crear un recurso en el servidor. Por ejemplo, cuando se quiere crear un usuario, un producto o una categoría.
+- **PUT:** Se utiliza para actualizar un recurso en el servidor. Por ejemplo, cuando se quiere actualizar un usuario, un producto o una categoría. Es importante tener en cuenta que PUT se utiliza para actualizar un recurso completo, es decir, que si se envía un recurso con un campo faltante, ese campo se va a eliminar del recurso en el servidor.
+- **PATCH:** Se utiliza para actualizar parcialmente un recurso en el servidor. Por ejemplo, cuando se quiere actualizar el nombre de un usuario, el precio de un producto o el nombre de una categoría. Este se diferencia de PUT en que PATCH solo actualiza los campos que se envían en la petición, y no elimina los campos que no se envían.
+- **DELETE:** Se utiliza para eliminar un recurso del servidor. Por ejemplo, cuando se quiere eliminar un usuario, un producto o una categoría.
+
+Estos verbos indican al servidor qué acción buscamos hacer en el endpoint al que estamos haciendo la petición.
+
+Existen otros métodos HTTP, pero no son tan usados como los anteriores. Algunos de ellos son:
+
+- **OPCIONS:** Se utiliza para obtener los métodos HTTP que están disponibles en un endpoint.
+- **TRACE:** Se utiliza para hacer un loopback de la petición. Es decir, que el servidor devuelve la misma petición que recibe.
+- **CONNECT:** Se utiliza para convertir la conexión de red en un túnel seguro y encriptado.
+
 ## API Keys
 
 Son métodos de autenticación que se utilizan para identificar a la aplicación que está haciendo una petición a una API. Se utilizan para evitar que personas no autorizadas hagan peticiones a la API y para limitar la cantidad de peticiones que se pueden hacer en un período de tiempo.
