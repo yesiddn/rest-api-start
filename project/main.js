@@ -18,6 +18,8 @@ async function fetchCat(urlApi) {
 const insertOneCat = async () => {
   try {
     const cat = await fetchCat(`${API}/images/search`);
+    console.log('One cat');
+    console.log(cat);
     img.src = cat[0].url;
 
     images[1].parentElement.classList.add('hidden');
@@ -25,7 +27,7 @@ const insertOneCat = async () => {
   } catch (error) {
     throw new Error(error);
   }
-}
+};
 
 // return three cats
 const insertThreeCats = async () => {
@@ -49,11 +51,32 @@ const insertThreeCats = async () => {
 };
 
 // return just one cat
-const insertFavoritesCats = async () => {
+const insertFavoutiresCats = async () => {
   try {
     const cat = await fetchCat(`${API}/favourites?${API_KEY}`);
 
+    console.log('Favourites cats');
     console.log(cat);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+async function addFavouriteCat() {
+  try {
+    const response = await fetch(`${API}/favourites?${API_KEY}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        image_id: 'c3a',
+      }),
+    });
+    const data = await response.json();
+
+    console.log('Cat added to favourites');
+    console.log(data);
   } catch (error) {
     throw new Error(error);
   }
@@ -63,4 +86,4 @@ oneCatBtn.addEventListener('click', insertOneCat);
 threeCatsBtn.addEventListener('click', insertThreeCats);
 
 insertOneCat();
-insertFavoritesCats();
+insertFavoutiresCats();
