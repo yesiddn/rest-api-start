@@ -51,18 +51,36 @@ const insertThreeCats = async () => {
 };
 
 // return just one cat
-const insertFavoutiresCats = async () => {
+const insertFavoutireCats = async () => {
   try {
-    const cat = await fetchCat(`${API}/favourites?${API_KEY}`);
+    const cats = await fetchCat(`${API}/favourites?${API_KEY}`);
+    const toRender = [];
+    const favouritesSection = document.querySelector('#favourite-michis');
 
-    console.log('Favourites cats');
-    console.log(cat);
+    console.log(cats)
+    cats.forEach(cat => {
+      const article = document.createElement('article');
+      const img = document.createElement('img');
+      const btn = document.createElement('button');
+      const textBtn = document.createTextNode('Sacar al michi de favoritos');
+
+      btn.append(textBtn);
+      img.src = cat.image.url;
+      img.classList.add('w-full', 'max-w-sm', 'rounded-lg');
+      img.alt = 'Favorite cat';
+      img.setAttribute('loading', 'lazy');
+
+      article.append(img, btn);
+      toRender.push(article);
+    });
+
+    favouritesSection.append(...toRender);
   } catch (error) {
     throw new Error(error);
   }
 };
 
-async function addFavouriteCat() {
+async function saveFavouriteCat(id) {
   try {
     const response = await fetch(`${API}/favourites?${API_KEY}`, {
       method: 'POST',
@@ -70,7 +88,7 @@ async function addFavouriteCat() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        image_id: 'c3a',
+        image_id: id,
       }),
     });
     const data = await response.json();
@@ -86,4 +104,4 @@ oneCatBtn.addEventListener('click', insertOneCat);
 threeCatsBtn.addEventListener('click', insertThreeCats);
 
 insertOneCat();
-insertFavoutiresCats();
+insertFavoutireCats();

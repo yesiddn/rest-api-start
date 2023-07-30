@@ -19,10 +19,10 @@
         class="w-36  mb-4 p-2 bg-sky-300 rounded-lg uppercase hover:bg-sky-500">Regenerate all</button>
     </div>
 
-    <section class="mx-12" id="random-michis">
+    <section class="mx-12">
       <h2>Random michis</h2>
 
-      <div class="flex flex-wrap justify-center items-center gap-4">
+      <div id="random-michis" class="flex flex-wrap justify-center items-center gap-4">
         <article class="">
           <img class="w-full max-w-sm rounded-lg" alt="Random kitty image" loading="lazy">
           <button onclick="addFavouriteCat()">Guardar michi en favoritos</button>
@@ -40,14 +40,15 @@
       </div>
     </section>
 
-    <section class="mx-12" id="favorites-michis">
+    <section class="mx-12">
       <h2>Favorites michis</h2>
 
-      <div class="flex flex-wrap justify-center items-center gap-4">
-        <article class="hidden">
+      <div id="favourite-michis" class="flex flex-wrap justify-center items-center gap-4">
+        <!-- michis favoritos -->
+        <!-- <article class="hidden">
           <img class="w-full max-w-sm rounded-lg" alt="Random kitty image" loading="lazy">
-          <button>Sacar al michi de favoritos</button>
-        </article>
+          <button></button>
+        </article> -->
       </div>
     </section>
   </main>
