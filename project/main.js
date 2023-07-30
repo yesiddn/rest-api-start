@@ -14,16 +14,56 @@ async function fetchCat(urlApi) {
   return data;
 }
 
+/**
+ * Return a list of cats
+ * @param {Array} cats
+ * @param {String} btnMessage
+ */
+function renderCats(cats, btnMessage, typeFuntion) {
+  const toRender = [];
+
+  cats.forEach((cat) => {
+    const article = document.createElement('article');
+    const img = document.createElement('img');
+    const btn = document.createElement('button');
+    const textBtn = document.createTextNode(btnMessage);
+
+    if (typeFuntion === 'Random cat') {
+      img.src = cat.url;
+      btn.onclick = () => saveFavouriteCat(cat.id);
+    } else if (typeFuntion === 'Favoite cat') {
+      img.src = cat.image.url;
+      btn.onclick = () => console.log('Remove cat from favourites');
+    } else {
+      btn.onclick = () => console.log('Function type not found');
+    }
+
+    btn.append(textBtn);
+    img.classList.add('w-full', 'max-w-sm', 'rounded-lg');
+    img.alt = typeFuntion;
+    img.setAttribute('loading', 'lazy');
+
+    article.append(img, btn);
+    toRender.push(article);
+  });
+
+  return toRender;
+}
+
 // return just one cat
 const insertOneCat = async () => {
   try {
     const cat = await fetchCat(`${API}/images/search`);
-    console.log('One cat');
-    console.log(cat);
-    img.src = cat[0].url;
+    const randomSection = document.querySelector('#random-michis');
 
-    images[1].parentElement.classList.add('hidden');
-    images[2].parentElement.classList.add('hidden');
+    const toRender = renderCats(
+      cat,
+      'Guardar michi en favoritos',
+      'Random cat'
+    );
+
+    randomSection.innerHTML = '';
+    randomSection.append(...toRender);
   } catch (error) {
     throw new Error(error);
   }
@@ -32,54 +72,25 @@ const insertOneCat = async () => {
 // return three cats
 const insertThreeCats = async () => {
   try {
-    // const allCats = await fetchCat(
-    //   `${API}/images/search?limit=3&api_key=${API_KEY}`
-    // ); // with api_key we can get just 3 cats
-    const allCats = await fetchCat(`${API}/images/search?limit=3`); // without api_key just we can get 10 cats
-    console.log(allCats);
-    const cats = allCats.slice(0, 3);
+    // const cats = await fetchCat(`${API}/images/search?limit=3`); // without api_key just we can get 10 cats
+    const cats = await fetchCat(`${API}/images/search?limit=3&${API_KEY}`); // with api_key we can get just 3 cats
 
-    const arrImages = [...images];
+    const randomSection = document.querySelector('#random-michis');
 
-    arrImages.forEach((image, item) => {
-      image.src = cats[item].url;
-      image.parentElement.classList.remove('hidden');
-    });
+    const toRender = renderCats(
+      cats,
+      'Guardar michi en favoritos',
+      'Random cat'
+    );
+
+    randomSection.innerHTML = '';
+    randomSection.append(...toRender);
   } catch (error) {
     throw new Error(error);
   }
 };
 
-// return just one cat
-const insertFavoutireCats = async () => {
-  try {
-    const cats = await fetchCat(`${API}/favourites?${API_KEY}`);
-    const toRender = [];
-    const favouritesSection = document.querySelector('#favourite-michis');
-
-    console.log(cats)
-    cats.forEach(cat => {
-      const article = document.createElement('article');
-      const img = document.createElement('img');
-      const btn = document.createElement('button');
-      const textBtn = document.createTextNode('Sacar al michi de favoritos');
-
-      btn.append(textBtn);
-      img.src = cat.image.url;
-      img.classList.add('w-full', 'max-w-sm', 'rounded-lg');
-      img.alt = 'Favorite cat';
-      img.setAttribute('loading', 'lazy');
-
-      article.append(img, btn);
-      toRender.push(article);
-    });
-
-    favouritesSection.append(...toRender);
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-
+// save favourite cat
 async function saveFavouriteCat(id) {
   try {
     const response = await fetch(`${API}/favourites?${API_KEY}`, {
@@ -95,10 +106,30 @@ async function saveFavouriteCat(id) {
 
     console.log('Cat added to favourites');
     console.log(data);
+    insertFavoutireCats();
   } catch (error) {
     throw new Error(error);
   }
 }
+
+// insert favourite cats
+const insertFavoutireCats = async () => {
+  try {
+    const cats = await fetchCat(`${API}/favourites?${API_KEY}`);
+    const favouritesSection = document.querySelector('#favourite-michis');
+
+    const toRender = renderCats(
+      cats,
+      'Sacar al michi de favoritos',
+      'Favoite cat'
+    );
+
+    favouritesSection.innerHTML = '';
+    favouritesSection.append(...toRender);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 
 oneCatBtn.addEventListener('click', insertOneCat);
 threeCatsBtn.addEventListener('click', insertThreeCats);
