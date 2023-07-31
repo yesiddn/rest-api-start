@@ -22,7 +22,7 @@ async function fetchCat(urlApi) {
 function renderCats(cats, btnMessage, typeFuntion) {
   const toRender = [];
 
-  cats.forEach((cat) => {
+  cats.toReversed().forEach((cat) => {
     const article = document.createElement('article');
     const img = document.createElement('img');
     const btn = document.createElement('button');
@@ -33,7 +33,7 @@ function renderCats(cats, btnMessage, typeFuntion) {
       btn.onclick = () => saveFavouriteCat(cat.id);
     } else if (typeFuntion === 'Favoite cat') {
       img.src = cat.image.url;
-      btn.onclick = () => console.log('Remove cat from favourites');
+      btn.onclick = () => deleteFavouriteCat(cat.id);
     } else {
       btn.onclick = () => console.log('Function type not found');
     }
@@ -91,7 +91,7 @@ const insertThreeCats = async () => {
 };
 
 // save favourite cat
-async function saveFavouriteCat(id) {
+async function saveFavouriteCat(idCat) {
   try {
     const response = await fetch(`${API}/favourites?${API_KEY}`, {
       method: 'POST',
@@ -99,7 +99,7 @@ async function saveFavouriteCat(id) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        image_id: id,
+        image_id: idCat,
       }),
     });
     const data = await response.json();
@@ -117,7 +117,7 @@ const insertFavoutireCats = async () => {
   try {
     const cats = await fetchCat(`${API}/favourites?${API_KEY}`);
     const favouritesSection = document.querySelector('#favourite-michis');
-
+    
     const toRender = renderCats(
       cats,
       'Sacar al michi de favoritos',
@@ -130,6 +130,22 @@ const insertFavoutireCats = async () => {
     throw new Error(error);
   }
 };
+
+// delete favourite cat
+async function deleteFavouriteCat(idCat) {
+  try {
+    const response = await fetch(`${API}/favourites/${idCat}?${API_KEY}`, {
+      method: 'DELETE',
+    });
+    const data = await response.json();
+
+    console.log('Cat delete from favourites');
+    console.log(data);
+    insertFavoutireCats();
+  } catch (error) {
+    throw new Error(error);
+  }
+}
 
 oneCatBtn.addEventListener('click', insertOneCat);
 threeCatsBtn.addEventListener('click', insertThreeCats);
