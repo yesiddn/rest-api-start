@@ -101,3 +101,24 @@ header: {
 ```js
 const API = 'https://api.example.com/v1/endPoint?api_key=123456789';
 ```
+
+## Fetch()
+
+### Headers
+
+Los headers en una petición HTTP son una colección de pares de valores que se envían en la petición para darle más información al servidor sobre lo que se está enviando y cómo debe interpretarlo.
+
+Para más información sobre los headers, puedes visitar [esta página](https://apipheny.io/api-headers/) y la [documentación de MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers).
+
+#### Tipos de headers
+
+Algunos de los headers más usados son:
+
+- Content-Type: Indica el tipo de contenido que se está enviando en el body de la petición. Por ejemplo, si se está enviando un JSON, el valor de este header debe ser application/json.
+- Authorization: Indica el tipo de autenticación que se está usando. Por ejemplo, si se está usando Basic Auth, el valor de este header debe ser Basic.
+- Cookie: Indica las cookies que se están enviando en la petición.
+- Location: Indica la URL a la que se está redirigiendo la petición.
+
+### Body
+
+El body de una petición HTTP es la información que se envía al servidor, esto es lo que debe ser interpretado según los parametros en los headers. Por ejemplo, cuando se envía un formulario, los datos del formulario se envían en el body de la petición.
