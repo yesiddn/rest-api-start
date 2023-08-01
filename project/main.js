@@ -1,6 +1,6 @@
 const API = 'https://api.thecatapi.com/v1';
 const API_KEY =
-  'api_key=live_5gjCKPHcZgibL1vzu3k9EPtHv0LU2qN7y7CQECh7bxvIl56X9p10gaK6mVyAdIqX';
+  'live_5gjCKPHcZgibL1vzu3k9EPtHv0LU2qN7y7CQECh7bxvIl56X9p10gaK6mVyAdIqX';
 
 const oneCatBtn = document.querySelector('#regenerate');
 const threeCatsBtn = document.querySelector('#regenerate-all');
@@ -73,7 +73,9 @@ const insertOneCat = async () => {
 const insertThreeCats = async () => {
   try {
     // const cats = await fetchCat(`${API}/images/search?limit=3`); // without api_key just we can get 10 cats
-    const cats = await fetchCat(`${API}/images/search?limit=3&${API_KEY}`); // with api_key we can get just 3 cats
+    const cats = await fetchCat(
+      `${API}/images/search?limit=3&api_key=${API_KEY}`
+    ); // with api_key we can get just 3 cats
 
     const randomSection = document.querySelector('#random-michis');
 
@@ -93,10 +95,12 @@ const insertThreeCats = async () => {
 // save favourite cat
 async function saveFavouriteCat(idCat) {
   try {
-    const response = await fetch(`${API}/favourites?${API_KEY}`, {
+    // const response = await fetch(`${API}/favourites?${API_KEY}`, { // API Key as a query param
+    const response = await fetch(`${API}/favourites`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'x-api-key': API_KEY, // API Key as a header
       },
       body: JSON.stringify({
         image_id: idCat,
@@ -115,7 +119,7 @@ async function saveFavouriteCat(idCat) {
 // insert favourite cats
 const insertFavoutireCats = async () => {
   try {
-    const cats = await fetchCat(`${API}/favourites?${API_KEY}`);
+    const cats = await fetchCat(`${API}/favourites?api_key=${API_KEY}`);
     const favouritesSection = document.querySelector('#favourite-michis');
     
     const toRender = renderCats(
@@ -134,8 +138,11 @@ const insertFavoutireCats = async () => {
 // delete favourite cat
 async function deleteFavouriteCat(idCat) {
   try {
-    const response = await fetch(`${API}/favourites/${idCat}?${API_KEY}`, {
+    const response = await fetch(`${API}/favourites/${idCat}`, {
       method: 'DELETE',
+      headers: {
+        'x-api-key': API_KEY,
+      },
     });
     const data = await response.json();
 
