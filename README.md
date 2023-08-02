@@ -119,6 +119,53 @@ Algunos de los headers más usados son:
 - Cookie: Indica las cookies que se están enviando en la petición.
 - Location: Indica la URL a la que se está redirigiendo la petición.
 
+##### Tipos de Content-Type
+
+Existen muchos tipos de Content-Type, pero los más usados se pueden agrupar en:
+
+- **Application:**
+  - application/json: Se utiliza para enviar un JSON.
+  - application/xml: Se utiliza para enviar un XML.
+  - application/zip: Se utiliza para enviar un archivo comprimido.
+  - application/x-www-form-urlencoded: Se utiliza para enviar los datos de un formulario.
+- **Audio:**
+  - audio/mpeg: Se utiliza para enviar un archivo de tipo MP3.
+  - audio/x-ms-wma: Se utiliza para enviar un archivo de tipo Windows Media Audio.
+  - audio/vnd.rn-realaudio: Se utiliza para enviar un archivo de tipo Real Audio.
+  - audio/x-wav: Se utiliza para enviar un archivo de tipo WAV.
+- **Image:**
+  - image/gif: Se utiliza para enviar un archivo de tipo GIF.
+  - image/jpeg: Se utiliza para enviar un archivo de tipo JPEG.
+  - image-png: Se utiliza para enviar un archivo de tipo PNG.
+  - image/x-icon: Se utiliza para enviar un archivo de tipo Icon.
+  - image/svg+xml: Se utiliza para enviar un archivo de tipo SVG.
+- **Video:**
+  - video/mpeg: Se utiliza para enviar un archivo de tipo MPEG.
+  - video/mp4: Se utiliza para enviar un archivo de tipo MP4.
+  - video/quicktime: Se utiliza para enviar un archivo de tipo QuickTime.
+  - video/webm: Se utiliza para enviar un archivo de tipo WebM.
+- **Multipart:**
+  - multipart/mixed: Se utiliza para enviar varios archivos de diferentes tipos.
+  - multipart/alternative: Se utiliza para enviar varios archivos de un mismo tipo.
+  - multipart/related: Se utiliza para enviar varios archivos relacionados entre sí.
+  - multipart/form-data: Se utiliza para enviar un formulario con varios archivos.Ssirve para enviar datos de formularios, nos ahorra tener que hacer un querySelector a cada input y su value, al usar este tipo de dato podemos agrupar todos esos datos en uno solo.
+- **Text:**
+  - text/css: Se utiliza para enviar un archivo de tipo CSS.
+  - text/csv: Se utiliza para enviar un archivo de tipo CSV.
+  - text/html: Se utiliza para enviar un archivo de tipo HTML.
+  - text/plain: Se utiliza para enviar un archivo de tipo texto plano.
+  - text/xml: Se utiliza para enviar un archivo de tipo XML.
+- **VND:**
+  - application/vnd.ms-excel: Se utiliza para enviar un archivo de tipo Excel.
+  - application/vnd.ms-powerpoint: Se utiliza para enviar un archivo de tipo PowerPoint.
+  - application/vnd.oasis.opendocument.text: Se utiliza para enviar un archivo de tipo OpenDocument.
+  - application/msword: Se utiliza para enviar un archivo de tipo Word.
+
+Para más información sobre los Content-Type, puedes visitar la documentación de MDN:
+
+- [¿Qué es y cómo funcion?](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type)
+- [Tipos](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)
+
 ### Body
 
 El body de una petición HTTP es la información que se envía al servidor, esto es lo que debe ser interpretado según los parametros en los headers. Por ejemplo, cuando se envía un formulario, los datos del formulario se envían en el body de la petición.
