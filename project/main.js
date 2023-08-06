@@ -154,6 +154,29 @@ async function deleteFavouriteCat(idCat) {
   }
 }
 
+async function uploadMichiPhoto() {
+  const form = document.querySelector('#uploding-form');
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch(`${API}/images/upload`, {
+      method: 'POST',
+      headers: {
+        // 'Content-Type': 'multipart/form-data', // dara un error 500 si se envia porque es necesario enviar el boundary
+        // para más información: https://muffinman.io/blog/uploading-files-using-fetch-multipart-form-data/
+        'x-api-key': API_KEY,
+      },
+      body: formData,
+    });
+    const data = await response.json();
+
+    console.log('Photo uploaded!');
+    saveFavouriteCat(data.id);
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
 oneCatBtn.addEventListener('click', insertOneCat);
 threeCatsBtn.addEventListener('click', insertThreeCats);
 
