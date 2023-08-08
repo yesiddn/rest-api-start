@@ -169,3 +169,64 @@ Para más información sobre los Content-Type, puedes visitar la documentación 
 ### Body
 
 El body de una petición HTTP es la información que se envía al servidor, esto es lo que debe ser interpretado según los parametros en los headers. Por ejemplo, cuando se envía un formulario, los datos del formulario se envían en el body de la petición.
+
+## Axios
+
+Axios es una librería que nos permite hacer peticiones HTTP desde el navegador y desde NodeJS. Es muy fácil de usar y tiene muchas funcionalidades. Reduce la cantidad de código que tenemos que escribir para hacer peticiones HTTP.
+
+Un ejemplo de la diferencia entre usar fetch y axios es el siguiente:
+
+```js
+// Fetch
+async function saveFavouriteCat(idCat) {
+  try {
+    const response = await fetch(`${API}/favourites`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': API_KEY,
+      },
+      body: JSON.stringify({
+        image_id: idCat,
+      }),
+    });
+    const data = await response.json();
+
+    console.log('Cat added to favourites');
+    console.log(data);
+    insertFavoutireCats();
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+```
+
+```js
+// Axios
+const axiosInstance = axios.create({
+  baseURL: 'https://api.thecatapi.com/v1/',
+  headers: {
+    'x-api-key':
+      'live_5gjCKPHcZgibL1vzu3k9EPtHv0LU2qN7y7CQECh7bxvIl56X9p10gaK6mVyAdIqX',
+  },
+});
+
+async function saveFavouriteCat(idCat) {
+  try {
+    const { data, status } = await axiosInstance.post('/favourites', {
+      image_id: idCat, // Nohay necesidad de hacer un JSON.stringify
+    });
+
+    console.log('Cat added to favourites');
+    console.log(status);
+    console.log(data);
+    insertFavoutireCats();
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+```
+
+Como se puede ver, con axios se reduce la cantidad de código que tenemos que escribir para hacer una petición HTTP. Además, axios nos permite configurar una instancia con la URL base y los headers que se van a enviar en todas las peticiones, lo que nos permite reducir aún más la cantidad de código que tenemos que escribir.
+
+Para más información sobre axios, puedes visitar la documentación oficial: [Axios](https://axios-http.com/).
