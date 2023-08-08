@@ -1,3 +1,11 @@
+const axiosInstance = axios.create({
+  baseURL: 'https://api.thecatapi.com/v1/',
+  headers: {
+    'x-api-key':
+      'live_5gjCKPHcZgibL1vzu3k9EPtHv0LU2qN7y7CQECh7bxvIl56X9p10gaK6mVyAdIqX',
+  },
+});
+
 const API = 'https://api.thecatapi.com/v1';
 const API_KEY =
   'live_5gjCKPHcZgibL1vzu3k9EPtHv0LU2qN7y7CQECh7bxvIl56X9p10gaK6mVyAdIqX';
@@ -96,6 +104,9 @@ const insertThreeCats = async () => {
 async function saveFavouriteCat(idCat) {
   try {
     // const response = await fetch(`${API}/favourites?${API_KEY}`, { // API Key as a query param
+
+    // request with native fetch
+    /*
     const response = await fetch(`${API}/favourites`, {
       method: 'POST',
       headers: {
@@ -107,6 +118,18 @@ async function saveFavouriteCat(idCat) {
       }),
     });
     const data = await response.json();
+    */
+
+    // request with axios
+
+    // const response = await axiosInstance.post('/favourites', {
+    //   image_id: idCat,
+    // }); // de esta forma se reciben todos los datos de la respuesta
+    // console.log(response);
+
+    const { data, status } = await axiosInstance.post('/favourites', {
+      image_id: idCat,
+    }); // de esta forma se reciben solo los datos que se necesitan
 
     console.log('Cat added to favourites');
     console.log(data);
@@ -121,7 +144,7 @@ const insertFavoutireCats = async () => {
   try {
     const cats = await fetchCat(`${API}/favourites?api_key=${API_KEY}`);
     const favouritesSection = document.querySelector('#favourite-michis');
-    
+
     const toRender = renderCats(
       cats,
       'Sacar al michi de favoritos',
