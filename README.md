@@ -166,6 +166,53 @@ Para más información sobre los Content-Type, puedes visitar la documentación 
 - [¿Qué es y cómo funcion?](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type)
 - [Tipos](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)
 
+#### Mode
+
+El mode de una petición HTTP indica el modo en el que se va a hacer la petición. Esto es, si se va a hacer una petición desde el mismo sitio web, desde otro sitio web o desde ningún sitio web.
+
+Los modos más usados son:
+
+- **cors:** Se utiliza para indicar que se puede hacer una petición desde cualquier sitio web.
+- **same-origin:** Se utiliza para indicar que se puede hacer una petición desde el mismo sitio web. Por ejemplo, si la página está en `https://example.com`, se puede hacer una petición a `https://example.com/api` pero no a `https://example2.com`.
+- **no-cors:** Se utiliza para indicar que no se puede hacer una petición desde ningún sitio web.
+
+Para más información sobre los modos, puedes visitar la documentación de MDN:
+
+- [¿Qué es y cómo funciona?](https://developer.mozilla.org/en-US/docs/Web/API/Request/mode)
+
+#### Cache
+
+El cache de una petición HTTP indica si se puede guardar la respuesta de la petición en la caché del navegador. Esto es, si se puede guardar la respuesta de la petición para usarla en futuras peticiones. 
+
+**No se recomienda usar el cache porque puede causar problemas de seguridad y de privacidad.**
+
+Los valores más usados son:
+
+- **default:** Se utiliza para indicar que se puede guardar la respuesta de la petición en la caché del navegador.
+- **no-store:** Se utiliza para indicar que no se puede guardar la respuesta de la petición en la caché del navegador.
+- **reload:** Se utiliza para indicar que se puede guardar la respuesta de la petición en la caché del navegador, pero que se debe volver a hacer la petición al servidor.
+- **no-cache:** Se utiliza para indicar que se puede guardar la respuesta de la petición en la caché del navegador, pero que se debe volver a hacer la petición al servidor para comprobar que la respuesta no ha cambiado, incluso cuando la caché está desconectada del servidor de origen.
+- **force-cache:** Se utiliza para indicar que se puede guardar la respuesta de la petición en la caché del navegador, pero que se debe volver a hacer la petición al servidor para comprobar que la respuesta no ha cambiado. Si la respuesta no ha cambiado, se usa la respuesta guardada en la caché.
+- **only-if-cached:** Se utiliza para indicar que se puede guardar la respuesta de la petición en la caché del navegador, pero que solo se puede usar la respuesta guardada en la caché.
+
+Para más información sobre el cache, puedes visitar la documentación de MDN:
+
+- [¿Qué es y cómo funciona?](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control)
+
+#### Redirect
+
+El redirect de una petición HTTP indica si se puede redirigir la petición a otra URL. Esto es, si se puede hacer una petición a una URL y que el servidor responda con una redirección a otra URL.
+
+Los valores más usados son:
+
+- **follow:** Se utiliza para indicar que se puede redirigir la petición a otra URL.
+- **error:** Se utiliza para indicar que no se puede redirigir la petición a otra URL.
+- **manual:** Se utiliza para indicar que se puede redirigir la petición a otra URL, pero que el navegador no debe seguir la redirección automáticamente. En este caso, se debe validar la redirección manualmente.
+
+Para más información sobre el redirect, puedes visitar la documentación de MDN:
+
+- [¿Qué es y cómo funciona?](https://developer.mozilla.org/en-US/docs/Web/API/Request/redirect)
+
 ### Body
 
 El body de una petición HTTP es la información que se envía al servidor, esto es lo que debe ser interpretado según los parametros en los headers. Por ejemplo, cuando se envía un formulario, los datos del formulario se envían en el body de la petición.
@@ -230,3 +277,12 @@ async function saveFavouriteCat(idCat) {
 Como se puede ver, con axios se reduce la cantidad de código que tenemos que escribir para hacer una petición HTTP. Además, axios nos permite configurar una instancia con la URL base y los headers que se van a enviar en todas las peticiones, lo que nos permite reducir aún más la cantidad de código que tenemos que escribir.
 
 Para más información sobre axios, puedes visitar la documentación oficial: [Axios](https://axios-http.com/).
+
+## Documentación
+
+- [Response.](https://developer.mozilla.org/en-US/docs/Web/API/Response)
+- [Caching.](https://developer.mozilla.org/es/docs/Web/HTTP/Caching#actualizaci%C3%B3n)
+- [Headers.](https://developer.mozilla.org/en-US/docs/Web/API/Headers)
+- [Request.](https://developer.mozilla.org/en-US/docs/Web/API/Request)
+- [Fetch.](https://developer.mozilla.org/en-US/docs/Web/API/fetch)
+- [Request.cache](https://developer.mozilla.org/en-US/docs/Web/API/Request/cache)
